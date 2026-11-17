@@ -29,12 +29,16 @@ DSH 的扩展面按插件设计，但有些能力没有公开入口：
 
 ## 开发
 
+仓库的日常操作都收在 Makefile 里，`make help` 列出全部：
+
 ```sh
-npm install
-npm run link-host   # 把宿主 DSH 的 @deepseek-ai 包链接进来；npm install 之后重跑
-npm run build
-npm test
+make install       # 安装依赖并链接宿主 DSH 的 @deepseek-ai 包
+make check         # 类型检查 + 构建 + 测试
+make dist-dry-run  # 演练发布：构建并准备单提交，不推送
+make publish-dist  # 构建并强推单提交的发布分支
 ```
+
+`publish-dist` 把 `dist/`、`package.json`、`LICENSE` 打成一条单提交推到 `dist` 分支（默认远端 `origin`，可用 `--branch=` / `--remote=` 覆盖），旧提交随 force-push 变成不可达，远端 gc 后清掉。
 
 本仓库公开。不要提交内部地址、凭据、内部模型 id。
 
