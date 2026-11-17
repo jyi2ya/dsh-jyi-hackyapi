@@ -21,3 +21,14 @@ export {
   replaceRow,
 } from './capabilities/presets.js'
 export type { InheritOptions, InheritedPreset, PresetRow } from './capabilities/presets.js'
+
+export {
+  piAiProviders,
+  readRowConfig,
+  updateRowConfig,
+} from './capabilities/volatile.js'
+export type {
+  PiAiProviderProfile,
+  PiAiProvidersHandle,
+  RowConfigUpdate,
+} from './capabilities/volatile.js'

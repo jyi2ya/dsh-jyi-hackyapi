@@ -10,9 +10,13 @@ DSH 的 preset 由声明它的插件在启动时注册。插件作者想按程�
 
 选区到语义锚点的映射也没有公开入口。聊天、文件审阅、文档预览、代码预览四类界面的位置信息藏在各自的 DOM 标记里，每个使用选区的插件都得逆向一遍。
 
+运行时改另一个插件行的配置同样缺少落脚点。Loader 的 `update()` 按 id 找行，但 profile 的行挂在 include 子树下，根树的 `resolve()` 走不到它们；调用方还得自己拼出整份配置，才能只改一个 volatile 字段。
+
 ## 这个仓库提供
 
 宿主侧提供 `presets`。调用方从已声明的 preset 派生变体，拿回一个句柄，变体随声明它的插件一起卸载。
+
+宿主侧还提供 `volatile`。调用方按行 id 读取或合并配置，改动落在 volatile 字段上时，目标行不重挂，只收到 `loader/volatile-update`。`piAiProviders` 在此之上读写 pi-ai 适配器的 provider 字典，其它 provider 原样保留；存在 settings 服务时整表写进 profile 配置，重载后按文件恢复，没有 settings 服务时只改运行时。
 
 前端侧提供一套 Web UI 工具，包含四类界面的选区解析与锚点事件发布、锚点订阅、弹层定位和客户端 slot 注册。Web UI 插件通过客户端模块表引用这些工具。
 
