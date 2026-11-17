@@ -1,0 +1,54 @@
+{
+  "name": "dsh-jyi-hackyapi",
+  "version": "0.0.1",
+  "description": "Stable capability facades over DSH internals: one home for the hacks, with contract tests and a doctor.",
+  "type": "module",
+  "license": "AGPL-3.0-or-later",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jyi2ya/dsh-jyi-hackyapi.git"
+  },
+  "homepage": "https://github.com/jyi2ya/dsh-jyi-hackyapi#readme",
+  "bugs": {
+    "url": "https://github.com/jyi2ya/dsh-jyi-hackyapi/issues"
+  },
+  "engines": {
+    "node": ">=24.9"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "typecheck": "tsc -p . --noEmit",
+    "test": "node --test test/*.test.mjs",
+    "link-host": "node scripts/link-host.mjs"
+  },
+  "dependencies": {
+    "js-yaml": "^4.3.2"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*",
+    "@deepseek-ai/cordis-plugin-include": "*",
+    "@deepseek-ai/dsh-agent-preset-registry": "*"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": { "optional": true },
+    "@deepseek-ai/cordis-plugin-include": { "optional": true },
+    "@deepseek-ai/dsh-agent-preset-registry": { "optional": true }
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  },
+  "keywords": ["dsh", "dsh-plugin", "capability", "facade"]
+}
