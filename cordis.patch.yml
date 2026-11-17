@@ -1,0 +1,5 @@
+# dsh-jyi-hackyapi 的 bundle patch：挂载一个空行，使本包成为 bundle，
+# 客户端的 dsh.client 模块随宿主行被扫描加载。
+- insert:
+    - id: hackyapi
+      name: dsh-jyi-hackyapi
