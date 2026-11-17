@@ -37,7 +37,7 @@ export interface InheritedPreset {
   dispose(): Promise<void>
 }
 
-/** 派生一个 preset；返回的句柄由调用方持有并负责释放。 */
+/** 派生一个 preset；注册挂在调用方的 fiber 上，调用方卸载时自动撤销。 */
 export async function inherit(ctx: Context, options: InheritOptions): Promise<InheritedPreset> {
   const names = new Set((await ctx.agentPresets.list()).map((preset) => preset.id))
   if (!names.has(options.from)) {
@@ -60,6 +60,7 @@ export async function inherit(ctx: Context, options: InheritOptions): Promise<In
     ...options.order === undefined ? {} : { order: options.order },
     plugins,
   })
+  ctx.effect(() => () => dispose())
   return { id: options.id, dispose }
 }
 
