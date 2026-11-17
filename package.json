@@ -1,6 +1,6 @@
 {
   "name": "dsh-jyi-hackyapi",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "Stable capability facades over DSH internals: one home for the hacks, with contract tests and a doctor.",
   "type": "module",
   "license": "AGPL-3.0-or-later",
@@ -12,9 +12,12 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./client": {
+      "default": "./client/index.js"
+    },
     "./package.json": "./package.json"
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": ["dist", "client", "cordis.patch.yml", "README.md", "LICENSE"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jyi2ya/dsh-jyi-hackyapi.git"
@@ -31,6 +34,15 @@
     "typecheck": "tsc -p . --noEmit",
     "test": "node --test test/*.test.mjs",
     "link-host": "node scripts/link-host.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": []
+    }
   },
   "dependencies": {
     "js-yaml": "^4.3.2"

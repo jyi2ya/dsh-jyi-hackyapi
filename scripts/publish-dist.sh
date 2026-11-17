@@ -31,6 +31,7 @@ command -v npm >/dev/null 2>&1 || { echo "npm not found" >&2; exit 1; }
 [ -f package.json ] || { echo "package.json not found in $ROOT" >&2; exit 1; }
 
 echo "==> build"
+rm -rf dist
 npm run build
 
 [ -d dist ] && [ -n "$(ls -A dist)" ] || { echo "dist/ is empty after build" >&2; exit 1; }
@@ -46,7 +47,8 @@ git init -q "$TMP"
 git -C "$TMP" config user.name "$(git config user.name || echo dist)"
 git -C "$TMP" config user.email "$(git config user.email || echo dist@localhost)"
 cp -r dist "$TMP/dist"
-cp package.json LICENSE "$TMP/"
+[ -d client ] && cp -r client "$TMP/client"
+cp package.json LICENSE cordis.patch.yml "$TMP/"
 [ -f README.md ] && cp README.md "$TMP/"
 git -C "$TMP" add -A
 git -C "$TMP" commit -q -m "dist: ${VERSION} (${SHA})"
